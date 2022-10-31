@@ -25,12 +25,28 @@ do
     ((count++))
 done
 echo successfully executed $count times, output written to sin100p_output.txt
-echo Testing dataset size of 500 points 5 times:
+echo Testing dataset size of 120 points 5 times:
 count=0
 while [ $count -le 4 ]
 do
-    python3 hierarchicalclustering.py time 500 sin >>500p_output.txt; sync
+    python3 hierarchicalclustering.py time 120 sin >>120p_output.txt; sync
     ((count++))
 done
-echo successfully executed $count times, output written to sin500p_output.txt
+echo successfully executed $count times, output written to sin120p_output.txt
+echo Testing dataset size of 150 points 5 times:
+count=0
+while [ $count -le 4 ]
+do
+    python3 hierarchicalclustering.py time 150 sin >>150p_output.txt; sync
+    ((count++))
+done
+echo successfully executed $count times, output written to sin150p_output.txt
+echo Testing dataset size of 200 points 5 times. This might take a few minutes:
+count=0
+while [ $count -le 4 ]
+do
+    python3 hierarchicalclustering.py time 200 sin >>200p_output.txt; sync
+    ((count++))
+done
+echo successfully executed $count times, output written to sin200p_output.txt
 echo All Done!
