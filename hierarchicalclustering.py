@@ -10,16 +10,19 @@ import csv
 
 # take in CLI args for: test type, dataset size/csv filepath, and single/complete/avg linkage
 dataset = []
+run_type = ''
 
 if len(sys.argv) > 2:
 
   if sys.argv[1] == 'test':
+    run_type = 'test'
     with open(sys.argv[2]) as file:
         data = csv.reader(file, delimiter = ',')
         for rows in data:
           dataset.append((rows[0], rows[1]))
 
   elif sys.argv[1] == 'time':
+    run_type = 'time'
     dataset = make_blobs(n_samples = int(sys.argv[2]), n_features = 2, centers = 10, cluster_std = 1, random_state = 10)
     dataset = dataset[0]
   else:
@@ -129,7 +132,7 @@ else:
   exit(1)
 
 # plot dendrogram for testing
-if sys.argv[1] == 'test':
+if run_type == 'test':
   matrix = linkage(dataset, method= method)
   plt.figure(figsize= (10, 10))
   plt.title('Hierarchical Clustering Dendrogram (Agglomerative)')
@@ -156,7 +159,7 @@ clusters= {}
 for clusterID, point in enumerate(coords):
   clusters[clusterID] = [point]
 
-if method == 'test':
+if run_type == 'test':
   print("Beginning Clusters for", numPoints, "Data Points:\n", clusters)
 
 farthest_dist = 0
@@ -196,7 +199,7 @@ while len(clusters) > 1:
   # merge closest pair of clusters
   
   merge(closest_pair[0], closest_pair[1])
-  if method == 'test':
+  if run_type == 'test':
     print('\nMerging Clusters', closest_pair[0], '&', closest_pair[1], 'with closest distance of', min_dist)
     print(' Clusters After Last Merge:\n', clusters)
 
